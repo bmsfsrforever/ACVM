@@ -132,6 +132,10 @@ class ViewController: NSViewController, FileDropViewDelegate {
             withExtension: nil
         )
         
+        let directory = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("winimg")
+            .appendingPathExtension("vhdx")
+        
         var arguments: [String] = [
             "-M", "virt,highmem=no",
             "-accel", "hvf",
@@ -145,7 +149,7 @@ class ViewController: NSViewController, FileDropViewDelegate {
             "-device", "usb-tablet",
             "-nic", nicOptions,
             "-rtc", "base=localtime,clock=host",
-            "-drive", "file=\(mainImage.path),if=none,id=boot,cache=writethrough",
+            "-drive", "file=\(directory.path),if=none,id=boot,cache=writethrough",
             "-device", "nvme,drive=boot,serial=boot",
             "-device", "intel-hda",
             "-device", "hda-duplex"
